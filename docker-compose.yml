@@ -1,0 +1,43 @@
+version: '2'
+
+services:
+  db:
+    container_name:  database
+    image: mysql
+    volumes:
+      - ./ignore/data/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+  wordpress:
+    image: wordpress
+    container_name: wordpress
+    depends_on:
+      - db
+    ports:
+      - "9000:80"
+    volumes:
+      - ./themes/blank-theme:/var/www/html/wp-content/themes/blank-theme
+    links:
+      - db
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_PASSWORD: wordpress
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=db
+      - PMA_USER=wordpress
+      - PMA_PASSWORD=wordpress
