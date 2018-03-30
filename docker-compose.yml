@@ -21,6 +21,7 @@ services:
       - "9000:80"
     volumes:
       - ./themes/blank-theme:/var/www/html/wp-content/themes/blank-theme
+      - ./ignore/wordpress:/var/www/html
     links:
       - db
     restart: always
