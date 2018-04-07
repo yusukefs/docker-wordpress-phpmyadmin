@@ -2,7 +2,7 @@ version: '2'
 
 services:
   db:
-    container_name:  database
+    container_name: database
     image: mysql
     volumes:
       - ./ignore/data/mysql:/var/lib/mysql
@@ -38,7 +38,7 @@ services:
     ports:
       - "8080:80"
     environment:
-      - PMA_ARBITRARY=1
-      - PMA_HOST=db
-      - PMA_USER=wordpress
-      - PMA_PASSWORD=wordpress
+      PMA_ARBITRARY: 1
+      PMA_HOST: db
+      PMA_USER: wordpress
+      PMA_PASSWORD: wordpress
